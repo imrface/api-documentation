@@ -1,171 +1,146 @@
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Bienvenu INSSAT API! 
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Cette documentation est réalisé au fur et à mesure de notre avancent pendant le projet,
+il va nous permettre de simplifier la communication entre notre back-end et front-end, surtout la methode http, paramatres, fromat de reponses
+
+# Liste des utilisateurs
+
+## codes de utilisateurs
+Code | sens 
+--------- | ------- 
+AE	|Diplômés (ancien étudiant)
+DIR	|	Directeur de l’établissement
+DDE	|	Direction des études
+ENS	|	Enseignants
+ETU	|	Étudiants
+CAN	|	Candidat
+GRE	|	Gestionnaires relations entreprise
+GRH	|	Gestionnaire ressources humaines
+SCO	|	Gestionnaires scolarité
+MA	|	Maître d’apprentissage
+MS	|	Maître de stage
+RP	|	Responsables pédagogiques
+DOC	|	Doctorant
+VAC	|	Vacataire
+TAC	|	Tuteur académique
+BU	|	Responsable de la bibliothèque universitaire
+PAC	|	Partenaire académique
+TEC	|	Equipe technique
+INT	|	Intranet (Système)
+<aside class=success>
+une lsite des utilsateurs 
+</aside>
+
+## codes de Groupes
+
+Code | sens  | membres
+--------- | ------- | ------- 
+ADM	|	Administration |	{GRE, GRH, SCO, DIR}
+USA	|	Utilisateur	|Ω \ {INT}
+USI	|	Utilisateur interne |	{ETU, ENS, DDE, GRE, GRH, SCO, DIR, RP, VAC, TAC, TEC, DOC, BU}
+USE	|	Utilisateur externe|	{AE, CAN, MA, MS, PAC}
+CRS	|	Personnes disposant de cours sur l’emploi du temps	| {ENS, VAC, ETU, DOC}
+SEC	|	Secrétariat |	{SCO, GRH}
+<aside class=success>
+liste de groupe
+</aside>
+
+
+## Enumérations
+### application_status
+Label |
+--------- | 
+application|
+eligible|
+accepted|
 
 # Authentication
 
-> To authorize, use this code:
+## login
 
-```ruby
-require 'kittn'
+> Pour se connecter , vous utilisez ce code:
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```bash
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
 
 ```javascript
-import { kittn } from 'kittn';
+import axios from 'axios';
 
-const api = kittn.authorize('meowmeowmeow');
+const response = axios.post("login", values);
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](https://example.com/developers).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class=notice>
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```bash
-curl "https://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-import { kittn } from 'kittn';
-
-const api = kittn.authorize('meowmeowmeow');
-const kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Le format json de cette requette http:
 
 ```json
 [
    {
       "id":         1,
-      "name":       "Fluffums",
-      "breed":      "calico",
-      "fluffiness": 6,
-      "cuteness":   7
-   },
-   {
-      "id":         2,
-      "name":       "Max",
-      "breed":      "unknown",
-      "fluffiness": 5,
-      "cuteness":   10
+      "profil":       "Fluffums",
+      "token":      "FGHJKL78999"
    }
 ]
 ```
 
-This endpoint retrieves all kittens.
+
+Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Authorization: meowmeowmeow`
 
 ### HTTP Request
 
-`GET https://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class=success>
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```bash
-curl "https://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-import { kittn } from 'kittn';
-
-const api = kittn.authorize('meowmeowmeow');
-const max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-   "id":         2,
-   "name":       "Max",
-   "breed":      "unknown",
-   "fluffiness": 5,
-   "cuteness":   10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class=warning>
-Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.
-</aside>
-
-### HTTP Request (with ID)
-
-`GET https://example.com/kittens/<ID>`
+`POST http://localhost:8000/login`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID | The ID of user
+Passowrd | The passowrd of user
+
+<aside class=notice>
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+
+## logout
+
+> Pour se connecter , vous utilisez ce code:
+
+
+```javascript
+import axios from 'axios';
+
+const response = axios.get("logout");
+```
+
+
+
+> Le format json de cette requette http:
+
+```json
+[
+   {
+   
+      "message":       "disconnected success",
+     
+   }
+]
+```
+
+Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Authorization: meowmeowmeow`
+
+### HTTP Request (with ID)
+
+`POST http://localhost:8000/logout`
+
+### URL Parameters
+
+aucun paramtre
+
+<aside class=notice>
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
