@@ -8,7 +8,7 @@
 > pour y acceder :
 
 ```javascript
-axios.get("/contact")
+axios.get("/contact-list")
 ```
 Affiche le formulaire de recherche de contact
 
@@ -25,7 +25,7 @@ USI
 
 ### HTTP Request
 
-`GET /contact`
+`GET /contact-list`
 
 ```json
 
