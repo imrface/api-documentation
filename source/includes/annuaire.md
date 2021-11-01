@@ -27,7 +27,20 @@ USI
 
 `GET /contact`
 
+```json
 
+  {
+    id: "SDFGH",
+    key: "1",
+    name: { name: "John Brown", service: "Pôle informatique" },
+    contact: {
+      phone: "09 87 65 54 43",
+      primaryEmail: "ialnezam@enssat.fr",
+      seondaryEmail: "ibrahim.alnezami@etudiant.univ-rennes1.fr",
+    },
+    avatar: "https://source.unsplash.com/random?avatar",
+  }
+```
 
 
 
